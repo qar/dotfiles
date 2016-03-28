@@ -132,4 +132,7 @@ let g:syntastic_javascript_checkers=['eslint']
 
 " 不检查 html 文件语法
 let g:syntastic_html_checkers=['']
+
+" 不检查 scss 文件语法
+let g:syntastic_scss_checkers=['']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
