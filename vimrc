@@ -28,6 +28,7 @@ Plugin 'wakatime/vim-wakatime'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'vimwiki/vimwiki' 
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
