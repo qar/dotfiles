@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 
+"
 " My VIM Configuration
 " by Qiao Anran <qiaoanran@gmail.com> 2016-03-26
 "
@@ -28,8 +28,10 @@ Plugin 'wakatime/vim-wakatime'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'leafgarland/typescript-vim'
-Plugin 'vimwiki/vimwiki' 
+Plugin 'vimwiki/vimwiki'
 Plugin 'elzr/vim-json'
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -59,7 +61,7 @@ colorscheme solarized
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" visibility 
+" visibility
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
 set number
@@ -76,6 +78,8 @@ set foldmethod=indent "syntax, indent
 
 " 高亮类html文件
 au BufNewFile,BufRead *.ejs set filetype=html
+
+autocmd FileType * setlocal relativenumber
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -84,13 +88,13 @@ au BufNewFile,BufRead *.ejs set filetype=html
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab 			" Expand tab with space
 set tabstop=2			" One tab equals two spaces
-set shiftwidth=2		" Indent by two characters 
+set shiftwidth=2		" Indent by two characters
 set autoindent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Speed Up 
+" Speed Up
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "标签页配置-通过ctrl-h/l切换前后标签
 nnoremap <C-l> gt
@@ -101,6 +105,11 @@ map <Esc><Esc> :%s/\s\+$//e<enter> :w<enter>
 
 " nerdtree
 nmap ,nt :NERDTreeToggle<CR>
+
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
 
 " 如果打开的文件除了NERDTree没有其他文件时，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
@@ -140,3 +149,28 @@ let g:syntastic_html_checkers=['']
 " 不检查 scss 文件语法
 let g:syntastic_scss_checkers=['']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_theme="luna"
+
+"这个是安装字体后 必须设置此项"
+let g:airline_powerline_fonts = 1
+
+"打开tabline功能,方便查看Buffer和切换，这个功能比较不错"
+"我还省去了minibufexpl插件，因为我习惯在1个Tab下用多个buffer"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+"设置切换Buffer快捷键"
+nnoremap <C-N> :bn<CR>
+nnoremap <C-P> :bp<CR>
+
+" 关闭状态显示空白符号计数,这个对我用处不大"
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+
+
