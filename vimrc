@@ -41,6 +41,7 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'delimitMate.vim'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'ekalinin/Dockerfile.vim'
 
 
 " All of your Plugins must be added before the following line
@@ -161,7 +162,6 @@ set linebreak
 " 浅色高亮当前行 / 列
 set cursorline
 set cursorcolumn
-"set guifont=Monospace\ 11
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
 set foldmethod=indent "syntax, indent
 
