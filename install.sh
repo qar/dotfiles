@@ -9,3 +9,6 @@ cd ~/.vim/bundle
 git clone git://github.com/altercation/vim-colors-solarized.git
 mv vim-colors-solarized ~/.vim/bundle/
 cp vimrc ~/.vimrc
+
+mv ~/.bash_profile ~/.bash_profile.backup
+ln -s ./bash_profile ~/.bash_profile
