@@ -292,3 +292,16 @@ let g:Powerline_symbols = 'fancy'
 set noshowmode
 
 let delimiteMate_expand_cr = 2
+
+" http://stackoverflow.com/a/5093286/2609042
+" paste text in visual mode without yank
+xnoremap p pgvy
+
+let g:vimwiki_list = [{
+  \ 'path': '$HOME/vimwiki',
+  \ 'template_path': '$HOME/vimwwiki/templates',
+  \ 'template_default': 'default',
+  \ 'template_ext': '.html'}]
+
+" Print unix_timestamp
+com Timestamp pu=strftime('%Y%m%d%H%M%S')
