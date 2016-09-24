@@ -12,3 +12,5 @@ cp vimrc ~/.vimrc
 
 mv ~/.bash_profile ~/.bash_profile.backup
 ln -s ./bash_profile ~/.bash_profile
+
+npm install -g commitizen
