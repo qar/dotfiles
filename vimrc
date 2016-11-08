@@ -300,7 +300,7 @@ xnoremap p pgvy
 
 let g:vimwiki_list = [{
   \ 'path': '$HOME/vimwiki',
-  \ 'template_path': '$HOME/vimwwiki/templates',
+  \ 'template_path': '$HOME/vimwiki/templates',
   \ 'template_default': 'default',
   \ 'template_ext': '.html'}]
 
