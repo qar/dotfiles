@@ -179,6 +179,7 @@ set tabstop=2			" One tab equals two spaces
 set shiftwidth=2		" Indent by two characters
 set expandtab 			" Expand tab with space
 set autoindent
+set backspace=indent,start,eol
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -303,5 +304,5 @@ let g:vimwiki_list = [{
   \ 'template_default': 'default',
   \ 'template_ext': '.html'}]
 
-" Print unix_timestamp 
+" Print unix_timestamp
 " com Timestamp pu=strftime('%Y%m%d%H%M%S')

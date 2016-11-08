@@ -3,6 +3,8 @@
 set -o errexit
 set -o pipefail
 
+ln -s /Users/anran/Projects/personal/dotfiles/bash_profile /Users/anran/.bash_profile
+
 cp -r vim ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
