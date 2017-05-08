@@ -21,7 +21,9 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'junegunn/vim-easy-align'
 Plugin 'groenewege/vim-less'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'scrooloose/nerdtree'
 Plugin 'closetag.vim'
 Plugin 'scrooloose/syntastic'
@@ -31,15 +33,16 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'vimwiki/vimwiki'
 Plugin 'elzr/vim-json'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-obsession'
 Plugin 'jlanzarotta/bufexplorer'
-Plugin 'delimitMate.vim'
+
+" provides insert mode auto-completion for quotes, parens, brackets, etc.
+" Plugin 'delimitMate.vim'
+
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ekalinin/Dockerfile.vim'
 
@@ -60,12 +63,22 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let mapleader = ','
+let maplocalleader = '\'
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+inoremap <esc> <nop>
+inoremap jk <esc>
+inoremap kj <esc>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'mode': "active",
+      \ 'passive_filetypes': ['ts'],
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
       \ },
@@ -222,6 +235,9 @@ if !exists("b:unaryTagsStack")
     let b:unaryTagsStack=""
 endif
 
+" Quick Comment
+autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+autocmd FileType python     nnoremap <buffer> <localleader>c I# <esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic Plugin
@@ -235,6 +251,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_warning_symbol = 'X'
 let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
@@ -246,6 +263,9 @@ let g:syntastic_html_checkers=['']
 
 " 不检查 scss 文件语法
 let g:syntastic_scss_checkers=['']
+
+" 不检查 typescript 文件语法
+let g:syntastic_typescript_checkers = ['tslint']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -300,9 +320,16 @@ xnoremap p pgvy
 
 let g:vimwiki_list = [{
   \ 'path': '$HOME/vimwiki',
+  \ 'path_html': '$HOME/vimwiki_html',
   \ 'template_path': '$HOME/vimwiki/templates',
   \ 'template_default': 'default',
-  \ 'template_ext': '.html'}]
+  \ 'template_ext': '.html',
+  \ 'css_name': 'static/style.css'}]
 
-" Print unix_timestamp
-" com Timestamp pu=strftime('%Y%m%d%H%M%S')
+" Align GitHub-flavored Markdown tables
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
