@@ -25,7 +25,6 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'groenewege/vim-less'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'scrooloose/nerdtree'
-Plugin 'closetag.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'altercation/vim-colors-solarized'
@@ -220,21 +219,6 @@ let NERDTreeShowLineNumbers=1
 " 如果打开的文件除了NERDTree没有其他文件时，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
-" 全局设定 closetag 插件优先匹配 HTML 文件
-let g:closetag_html_style=1
-
-if !exists("b:unaryTagsStack") || exists("b:closetag_html_style")
-    if &filetype == "html" || exists("b:closetag_html_style")
-        let b:unaryTagsStacktack="area base br dd dt hr img input link meta param"
-    else " for xml and xsl
-        let b:unaryTagsStack=""
-    endif
-endif
-
-if !exists("b:unaryTagsStack")
-    let b:unaryTagsStack=""
-endif
-
 " Quick Comment
 autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
 autocmd FileType python     nnoremap <buffer> <localleader>c I# <esc>
@@ -267,8 +251,6 @@ let g:syntastic_scss_checkers=['']
 " 不检查 typescript 文件语法
 let g:syntastic_typescript_checkers = ['tslint']
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
