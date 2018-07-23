@@ -1,0 +1,333 @@
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" My VIM Configuration
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vundle configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+set encoding=utf-8
+scriptencoding utf-8
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'vimwiki/vimwiki'
+Plugin 'elzr/vim-json'
+Plugin 'ekalinin/Dockerfile.vim'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+let mapleader = ','
+let maplocalleader = '\'
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+inoremap <esc> <nop>
+inoremap jk <esc>
+inoremap kj <esc>
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Theme Configuration
+" http://ethanschoonover.com/solarized
+" vundle > Plugin 'altercation/vim-colors-solarized'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set background=dark
+syntax enable
+colorscheme solarized
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" visibility
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+set number
+set hlsearch
+set ruler
+set linebreak
+
+" 设置支持语法高亮的最大行宽度, 限制这个宽度可以提高性能
+" 对于某些文件比如 Markdown 可以考虑不限制
+set synmaxcol=200
+
+" 浅色高亮当前行 / 列
+set cursorline
+set cursorcolumn
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
+set foldmethod=indent "syntax, indent
+
+" 高亮类html文件
+au BufNewFile,BufRead *.ejs set filetype=html
+
+autocmd FileType * setlocal relativenumber
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Coding Style
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set tabstop=2			" One tab equals two spaces
+set shiftwidth=2		" Indent by two characters
+set expandtab 			" Expand tab with space
+set autoindent
+set backspace=indent,start,eol
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Speed Up
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 连续粘贴
+xnoremap p pgvy
+
+"标签页配置-通过ctrl-h/l切换前后标签
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+
+" 双击 ESC 去除行尾空白字符然后保存
+map <Esc><Esc> :%s/\s\+$//e<enter> :w<enter>
+
+" nerdtree
+nmap ,nt :NERDTreeToggle<CR>
+
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+" autocmd FileType nerdtree setlocal relativenumber
+
+" 如果打开的文件除了NERDTree没有其他文件时，它自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+
+" Quick Comment
+autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+autocmd FileType python     nnoremap <buffer> <localleader>c I# <esc>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntastic Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_warning_symbol = 'X'
+let g:syntastic_error_symbol = '✗✗'
+let g:syntastic_style_error_symbol = '✠✠'
+let g:syntastic_warning_symbol = '∆∆'
+let g:syntastic_style_warning_symbol = '≈≈'
+
+" 不检查 html 文件语法
+let g:syntastic_html_checkers=['']
+
+" 不检查 scss 文件语法
+let g:syntastic_scss_checkers=['']
+
+" 不检查 typescript 文件语法
+let g:syntastic_typescript_checkers = ['tslint']
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" OLD CONFIG 
+"
+      
+      
+"      """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"      " Lightline
+"      """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"      let g:lightline = {
+"            \ 'colorscheme': 'solarized',
+"            \ 'mode_map': { 'c': 'NORMAL' },
+"            \ 'mode': "active",
+"            \ 'passive_filetypes': ['ts'],
+"            \ 'active': {
+"            \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+"            \ },
+"            \ 'component_function': {
+"            \   'modified': 'LightLineModified',
+"            \   'readonly': 'LightLineReadonly',
+"            \   'fugitive': 'LightLineFugitive',
+"            \   'filename': 'LightLineFilename',
+"            \   'fileformat': 'LightLineFileformat',
+"            \   'filetype': 'LightLineFiletype',
+"            \   'fileencoding': 'LightLineFileencoding',
+"            \   'mode': 'LightLineMode',
+"            \ },
+"            \ 'component_expand': {
+"            \   'syntastic': 'SyntasticStatuslineFlag',
+"            \ },
+"            \ 'component_type': {
+"            \   'syntastic': 'error',
+"            \ },
+"            \ 'separator': { 'left': '⮀', 'right': '⮂' },
+"            \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+"            \ }
+"      
+"      function! LightLineModified()
+"        return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+"      endfunction
+"      
+"      function! LightLineReadonly()
+"        return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+"      endfunction
+"      
+"      function! LightLineFilename()
+"        return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+"              \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+"              \  &ft == 'unite' ? unite#get_status_string() :
+"              \  &ft == 'vimshell' ? vimshell#get_status_string() :
+"              \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+"              \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+"      endfunction
+"      
+"      function! LightLineFugitive()
+"        if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
+"          let _ = fugitive#head()
+"          return strlen(_) ? '⭠ '._ : ''
+"        endif
+"        return ''
+"      endfunction
+"      
+"      function! LightLineFileformat()
+"        return winwidth(0) > 70 ? &fileformat : ''
+"      endfunction
+"      
+"      function! LightLineFiletype()
+"        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+"      endfunction
+"      
+"      function! LightLineFileencoding()
+"        return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+"      endfunction
+"      
+"      function! LightLineMode()
+"        return winwidth(0) > 60 ? lightline#mode() : ''
+"      endfunction
+"      set laststatus=2
+"      
+"      function! MyFiletype()
+"        return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+"      endfunction
+"      
+"      function! MyFileformat()
+"        return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+"      endfunction
+"      
+      
+"      
+      
+"      """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"      " Airline
+"      """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"      " let g:airline_theme="luna"
+"      
+"      "这个是安装字体后 必须设置此项"
+"      " let g:airline_powerline_fonts = 1
+"      
+"      "打开tabline功能,方便查看Buffer和切换，这个功能比较不错"
+"      "我还省去了minibufexpl插件，因为我习惯在1个Tab下用多个buffer"
+"      " let g:airline#extensions#tabline#enabled = 1
+"      " let g:airline#extensions#tabline#buffer_nr_show = 1
+"      
+"      "设置切换Buffer快捷键"
+"      nnoremap <C-N> :bn<CR>
+"      nnoremap <C-P> :bp<CR>
+"      
+"      " 关闭状态显示空白符号计数,这个对我用处不大"
+"      " let g:airline#extensions#whitespace#enabled = 0
+"      " let g:airline#extensions#whitespace#symbol = '!'
+"      
+"      
+"      set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"      
+"      " if !exists('g:airline_symbols')
+"      "   let g:airline_symbols = {}
+"      " endif
+"      " " let g:airline_left_sep = '▶'
+"      " let g:airline_left_sep = ''
+"      " let g:airline_left_alt_sep = '❯'
+"      " " let g:airline_right_sep = '◀'
+"      " let g:airline_right_sep = ''
+"      " let g:airline_right_alt_sep = '❮'
+"      " let g:airline_symbols.linenr = '|'
+"      " let g:airline_symbols.branch = '⎇'
+"      
+"      " 是否打开tabline
+"      " let g:airline#extensions#tabline#enabled = 1
+"      "
+"      let g:Powerline_symbols = 'fancy'
+"      set noshowmode
+"      
+"      let delimiteMate_expand_cr = 2
+"      
+"      " http://stackoverflow.com/a/5093286/2609042
+"      " paste text in visual mode without yank
+"      xnoremap p pgvy
+"      
+"      let g:vimwiki_list = [{
+"        \ 'path': '$HOME/vimwiki',
+"        \ 'path_html': '$HOME/vimwiki_html',
+"        \ 'template_path': '$HOME/vimwiki/templates',
+"        \ 'template_default': 'default',
+"        \ 'template_ext': '.html',
+"        \ 'css_name': 'static/style.css'}]
+"      
+"      " Align GitHub-flavored Markdown tables
+"      au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+"      " Start interactive EasyAlign in visual mode (e.g. vipga)
+"      xmap ga <Plug>(EasyAlign)
+"      
+"      " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+"      nmap ga <Plug>(EasyAlign)
+"      
