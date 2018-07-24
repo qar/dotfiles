@@ -1,4 +1,8 @@
 [user]
 	name = Qiao Anran
 	email = qiaoanran@gmail.com
-	signingkey = 4076B1A6 
+	signingkey = 14B5C16A
+[alias]
+	log2 = log --all --graph --decorate
+	ca = commit --amend
+	st = status
