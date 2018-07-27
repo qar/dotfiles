@@ -175,8 +175,15 @@ let g:syntastic_typescript_checkers = ['tslint']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" EasyAlign Plugin
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
-
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+ 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OLD CONFIG 
@@ -322,12 +329,5 @@ let g:syntastic_typescript_checkers = ['tslint']
 "        \ 'template_default': 'default',
 "        \ 'template_ext': '.html',
 "        \ 'css_name': 'static/style.css'}]
-"      
-"      " Align GitHub-flavored Markdown tables
-"      au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
-"      " Start interactive EasyAlign in visual mode (e.g. vipga)
-"      xmap ga <Plug>(EasyAlign)
-"      
-"      " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-"      nmap ga <Plug>(EasyAlign)
-"      
+
+     
