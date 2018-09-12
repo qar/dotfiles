@@ -6,3 +6,5 @@
 	log2 = log --all --graph --decorate
 	ca = commit --amend
 	st = status
+[commit]
+	gpgsign = true
