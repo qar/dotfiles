@@ -3,10 +3,11 @@
 set -o errexit
 set -o pipefail
 
-ln -s /Users/anran/Projects/personal/dotfiles/bash_profile /Users/anran/.bash_profile
+ln -s $HOME/Projects/personal/dotfiles/bash_profile $HOME/.bash_profile
+cp ./tmux.conf $HOME/.tmux.conf
 
 cp -r vim ~/.vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 cd ~/.vim/bundle
 git clone git://github.com/altercation/vim-colors-solarized.git
