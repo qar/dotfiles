@@ -1,1 +1,1 @@
-ln -s $(pwd)/gitconfig ~/.gitconfig
+ln -sf $(pwd)/gitconfig ~/.gitconfig
