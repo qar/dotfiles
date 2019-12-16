@@ -337,3 +337,5 @@ let g:vimwiki_list = [{
 "      " paste text in visual mode without yank
 "      xnoremap p pgvy
 "
+
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<,space:.
