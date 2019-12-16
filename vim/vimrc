@@ -170,9 +170,13 @@ let g:syntastic_html_checkers=['']
 " 不检查 scss 文件语法
 let g:syntastic_scss_checkers=['']
 
-" 不检查 typescript 文件语法
+" 检查 typescript 文件语法
 let g:syntastic_typescript_checkers = ['tslint']
 
+" Point syntastic checker at locally installed `tslint` if it exists.
+if executable('node_modules/.bin/tslint')
+  let b:syntastic_typescript_tslint_exec = 'node_modules/.bin/tslint'
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " EasyAlign Plugin
@@ -333,4 +337,3 @@ let g:vimwiki_list = [{
 "      " paste text in visual mode without yank
 "      xnoremap p pgvy
 "
-
